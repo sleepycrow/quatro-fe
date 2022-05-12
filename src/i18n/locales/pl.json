@@ -1,0 +1,65 @@
+{
+	"menu": {
+		"timelines": "Osie Czasu",
+		"search": "Szukaj",
+		"bookmarks": "Zakładki",
+		"chats": "Czaty",
+		"notifications": "Powiadomienia",
+		"login": "Zaloguj się"
+	},
+
+	"timelines": {
+		"home": "Twoja Oś Czasu",
+		"local": "Oś Czasu Społeczności",
+		"public": "Globalna Oś Czasu"
+	},
+
+	"fuzzy_dates": {
+		"just_now": "Przed chwilą",
+
+		"minutes_ago": "{0} min. temu",
+		"hours_ago": "{0} godz. temu",
+		"days_ago": "{0} dni temu",
+		"weeks_ago": "{0} tyg. temu",
+		"months_ago": "{0} mies. temu",
+
+		"minutes_ago_singular": "Minutę temu",
+		"hours_ago_singular": "Godzinę temu",
+		"days_ago_singular": "Dzień temu",
+		"weeks_ago_singular": "Tydzień temu",
+		"months_ago_singular": "Miesiąc temu"
+	},
+
+	"statuses": {
+		"part_of_a_thread": "Część dłuższego wątku",
+		"reposted_by": "Powtórzone przez",
+		"status_page_title": "Status użytkownika {0}",
+
+		"visibility_public": "Publiczny",
+		"visibility_unlisted": "Niewidoczny",
+		"visibility_private": "Tylko dla śledzących",
+		"visibility_direct": "Bezpośredni"
+	},
+
+	"notifs": {
+		"follow": "zaczął/ęła Cię obserwować!",
+		"favourite": "dodał/a Twój wpis do ulubionych!",
+		"reblog": "powtórzył/a Twój wpis!",
+		"mention": "wspomniał/a Cię we wpisie!",
+		"pleroma:emoji_reaction": "zareagował/a na Twój status emoji ({emoji})!",
+		"pleroma:chat_mention": "wspomniał/a Cię w czacie!",
+		"pleroma:report": "został/a zgłoszony/na!",
+		"move": "przeniósł/osła swoje konto!",
+		"follow_request": "chciałby/łaby Cię obserwować! Czy zgadzasz się na to?",
+		"poll": "Ankieta w której brałeś/aś udział zakończyła się!",
+
+		"mark_all_as_read": "Oznacz wszystkie jako przeczytane",
+		"mark_as_read": "Oznacz jako przeczytane"
+	},
+
+	"loading": "Ładowanie...",
+	"load_more": "Załaduj Więcej",
+	"load_new_statuses": "Załaduj Nowe Wpisy",
+	"show": "Pokaż",
+	"hide": "Ukryj"
+}

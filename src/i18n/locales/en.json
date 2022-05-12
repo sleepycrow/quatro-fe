@@ -1,0 +1,65 @@
+{
+	"menu": {
+		"timelines": "Timelines",
+		"search": "Search",
+		"bookmarks": "Bookmarks",
+		"chats": "Chats",
+		"notifications": "Notifications",
+		"login": "Log in"
+	},
+
+	"timelines": {
+		"home": "Your Timeline",
+		"local": "Community Timeline",
+		"public": "Global Timeline"
+	},
+
+	"fuzzy_dates": {
+		"just_now": "Just now",
+
+		"minutes_ago": "{0} minutes ago",
+		"hours_ago": "{0} hours ago",
+		"days_ago": "{0} days ago",
+		"weeks_ago": "{0} weeks ago",
+		"months_ago": "{0} months ago",
+
+		"minutes_ago_singular": "A minute ago",
+		"hours_ago_singular": "An hour ago",
+		"days_ago_singular": "A day ago",
+		"weeks_ago_singular": "A week ago",
+		"months_ago_singular": "A month ago"
+	},
+
+	"statuses": {
+		"part_of_a_thread": "Part of a Thread",
+		"reposted_by": "Reposted by",
+		"status_page_title": "Status by {0}",
+
+		"visibility_public": "Public",
+		"visibility_unlisted": "Unlisted",
+		"visibility_private": "Followers-only",
+		"visibility_direct": "Direct"
+	},
+
+	"notifs": {
+		"follow": "started following you!",
+		"favourite": "favourited your status!",
+		"reblog": "reblogged your status!",
+		"mention": "mentioned you in a status!",
+		"pleroma:emoji_reaction": "reacted to your status with an emoji ({emoji})!",
+		"pleroma:chat_mention": "mentioned you in a chat message!",
+		"pleroma:report": "was reported!",
+		"move": "moved their accound!",
+		"follow_request": "would like to follow you! Do you accept?",
+		"poll": "A poll you have created or participated in has ended!",
+
+		"mark_all_as_read": "Mark all as read",
+		"mark_as_read": "Mark as read"
+	},
+
+	"loading": "Loading...",
+	"load_more": "Load More",
+	"load_new_statuses": "Load New Statuses",
+	"show": "Show",
+	"hide": "Hide"
+}

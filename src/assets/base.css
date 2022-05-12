@@ -1,0 +1,394 @@
+/* --- SETUP RULES --- */
+:root{
+	--sidebar-width: 280px;
+	--inner-page-width: 800px;
+	--inner-page-width--wide: 1000px;
+	--icon-button-size: 32px;
+
+	--accent: #347FC4;
+	--accent-light: #5ca9f1;
+
+	--sidebar-logo-height: 64px;
+}
+
+body{
+	font-family: Avenir, Helvetica, Arial, sans-serif;
+	margin: 0;
+}
+
+*{
+	box-sizing: border-box;
+}
+
+img.emoji{
+	width: 1rem;
+	height: 1rem;
+	vertical-align: middle;
+	object-fit: contain;
+}
+
+a{
+	color: var(--accent);
+	text-decoration: none;
+}
+
+a:hover{
+	text-decoration: underline;
+}
+
+img{
+	width: auto;
+	height: auto;
+	max-width: 100%;
+}
+
+blockquote{
+	border-left: 3px solid var(--accent);
+	margin: 0.5rem 0 0.5rem 1rem;
+	padding: 0.5rem 0 0.5rem 1rem;
+}
+
+/* --- MATERIAL ICONS --- */
+.material-icons,
+.material-icons-outlined{
+	vertical-align: middle;
+}
+
+.md-18 { font-size: 18px; }
+.md-24 { font-size: 24px; }
+.md-36 { font-size: 36px; }
+.md-48 { font-size: 48px; }
+
+/* --- LAYOUT COMPONENTS --- */
+.page{
+	margin: 0;
+}
+
+@media screen and (min-width: 1280px) {
+	.page{
+		margin: 0 0 0 var(--sidebar-width);
+	}
+}
+
+.page-content{
+	width: 100%;
+	max-width: var(--inner-page-width);
+	margin: 1rem auto;
+}
+
+.page-content--2col{
+	max-width: var(--inner-page-width--wide);
+}
+
+.page-content--2col main,
+.page-content--2col aside{
+	width: 100%;
+	margin-bottom: 2rem;
+}
+
+@media screen and (min-width: 768px) {
+	.page-content--2col main{
+		float: left;
+		width: 66.6%;
+	}
+
+	.page-content--2col aside{
+		float: right;
+		width: 33.3%;
+	}
+}
+
+.throbber-container{
+	padding: 48px 0;
+	text-align: center;
+}
+
+/* --- UNIVERSAL COMPONENTS --- */
+/* Page header */
+.flex-header{
+	padding: 0 8px;
+	margin: 12px 0; /* css is v. nice :) */
+	display: flex;
+	width: 100%;
+	justify-items: center;
+}
+
+.flex-header .flex-header__title{
+	flex-grow: 1;
+	flex-shrink: 0;
+}
+
+.flex-header .flex-header__title h1{
+	line-height: var(--icon-button-size);
+	margin: 0;
+	font-weight: bold;
+	font-size: 1.33rem;
+}
+
+.flex-header .flex-header__title h2{
+	line-height: var(--icon-button-size);
+	margin: 0;
+	font-weight: bold;
+	font-size: 1rem;
+}
+
+.flex-header .flex-header__buttons{
+	flex-grow: 0;
+	flex-shrink: 0;
+}
+
+.flex-header__dropdown__title{
+	margin: 0 0 0 -8px;
+	padding: 0 8px;
+	background-color: transparent;
+	border: none;
+	border-radius: 8px;
+	line-height: var(--icon-button-size);
+	font-weight: bold;
+	font-size: 1.33rem;
+	cursor: pointer;
+	display: inline-block;
+	transition: background-color 0.1s;
+}
+
+.flex-header__dropdown__title:hover{
+	background-color: rgba(0, 0, 0, 0.25);
+}
+
+/* Buttons */
+.btn{
+	position: relative;
+	flex-grow: 0;
+	border: 0;
+	border-radius: 2px;
+	padding: 0.75rem 1.25rem;
+	background-color: var(--accent);
+	color: #FFF;
+	font-weight: bold;
+	text-transform: uppercase;
+	text-align: center;
+	vertical-align: middle;
+	cursor: pointer;
+	
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.75);
+	transition: box-shadow 0.2s, background-color 0.2s, color 0.2s;
+}
+
+.btn:hover{
+	background-color: var(--accent-light);
+}
+
+.btn:disabled{
+	background-color: var(--accent-light);
+	color: rgba(255, 255, 255, 0.75);
+	cursor: default;
+}
+
+.btn--mini{
+	padding: 0.5rem 1rem;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.75);
+}
+
+.icon-btn{
+	border-radius: 50%;
+	font-size: 24px;
+	height: var(--icon-button-size);
+	min-width: var(--icon-button-size);
+	width: var(--icon-button-size);
+	font-weight: normal;
+	text-transform: none;
+	padding: 0;
+	overflow: hidden;
+	color: inherit;
+	line-height: 18px;
+	
+	background-color: transparent;
+	box-shadow: none;
+	transition: box-shadow 0.2s, background-color 0.2s, color 0.2s;
+}
+
+.icon-btn:hover{
+	background-color: #CCC;
+}
+
+/* Tab menu */
+.tab-menu{
+	width: 100%;
+	
+	display: flex;
+	align-items: center;
+	flex-wrap: nowrap;
+	overflow: auto hidden;
+}
+
+.tab-menu .tab{
+	display: block;
+
+	width: 100%;
+	flex: 1 1 auto;
+
+	padding: 0.75rem 1.25rem;
+	border-bottom: 2px solid transparent;
+	cursor: pointer;
+	color: #FFF;
+	opacity: 0.66;
+	font-weight: bold;
+	text-align: center;
+	white-space: nowrap;
+
+	transition: opacity 0.2s;
+}
+
+.tab-menu .tab:hover{
+	opacity: 1;
+}
+
+.tab-menu .tab--active{
+	opacity: 1;
+	color: var(--accent-400);
+	border-bottom: 2px solid var(--accent-400);
+}
+
+.tab-menu--transparent .tab--active{
+	color: #FFF;
+	border-bottom: 2px solid #FFF;
+}
+
+.tab-menu--centered{
+	justify-content: center;
+}
+
+.tab-menu--centered .tab{
+	flex-grow: 0;
+	width: auto;
+}
+
+/* this is here because mobile devices don't like centered flexbox. delete on bugfix haha. */
+.tab-menu--centered{
+	padding-left: 25vw;
+}
+
+@media screen and (min-width: 768px) {
+	.tab-menu--centered{
+		padding-left: 0;
+	}
+}
+
+/* Card */
+.card{
+	position: relative;
+	margin: 1rem 0;
+	background-color: #FFF;
+	border-radius: 2px;
+	overflow: hidden;
+	box-shadow: 0 2px 6px #777;
+}
+
+.card__content{
+	position: relative;
+	margin: 16px;
+}
+
+.card__actions{
+	width: 100%;
+	padding: 0 4px;
+	white-space: nowrap;
+	overflow-x: auto;
+}
+
+.card__actions .card__action{
+	display: inline-block;
+	color: #333;
+	padding: 8px 12px;
+	text-align: center;
+	border: none;
+	background-color: transparent;
+	transition: background-color 0.2s;
+	cursor: pointer;
+	margin: 4px 4px;
+	border-radius: 2px;
+	font-size: inherit;
+	font-family: inherit;
+}
+
+.card__actions .card__action:hover,
+.card__actions .card__action:active{
+	background-color: #CCC;
+}
+
+.card__action--done{
+	font-weight: bold;
+}
+
+.card .card__img{
+	text-align: center;
+}
+
+.card .card__img img{
+	border-radius: 2px;
+}
+
+.card__note{
+	font-size: 0.9rem;
+	color: #333;
+	border-bottom: 1px solid #CCC;
+	padding: 6px 0 6px 16px;
+}
+
+.card__menu{
+	position: absolute !important;
+	top: 0;
+	right: 0;
+}
+
+/* Dropdown Menu */
+.dropdown{
+	position: relative;
+}
+
+.dropdown__content{
+	display: none;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	z-index: 10;
+	min-width: 200px;
+
+	padding: 0;
+	margin: 8px 0;
+
+	text-align: left;
+	background-color: #FFF;
+	box-shadow: 0 2px 6px #777;
+}
+
+.dropdown--right{
+	text-align: right;
+}
+
+.dropdown--right .dropdown__content{
+	left: auto;
+	right: 0;
+}
+
+ul.dropdown__content{
+	list-style-type: none;
+}
+
+.dropdown__content--visible{
+	display: block;
+}
+
+ul.dropdown__content li a{
+	display: block;
+	color: #000;
+	text-decoration: none;
+	padding: 1rem 1rem 1rem 1.25rem;
+	background-color: transparent;
+	cursor: pointer;
+	transition: background-color 0.1s;
+}
+
+ul.dropdown__content li a:hover{
+	background-color: rgba(0, 0, 0, 0.25);
+}
