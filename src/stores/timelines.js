@@ -101,5 +101,30 @@ export const useTimelinesStore = defineStore('timelines', {
 			}
 		},
 
+		// this is a very expensive operation, prefer just setting the 'deleted' flag in posts, if possible
+		removeStatuses(statusIds = [], tlIds){
+			var tlIds = ((Array.isArray(tlIds) && tlIds.length > 0) ? tlIds : Object.keys(this.state))
+			
+			// build a hashmap
+			var statusMap = {}
+			for(var statusId of statusIds)
+				statusMap[statusId] = true
+
+			// rid timelines of the requested posts
+			for(var tlId of tlIds){
+				if(!this.state.hasOwnProperty(tlId))
+					continue
+				
+				var tl = this.state[tlId]
+
+				tl.statuses = tl.statuses.filter((someStatus) => ( !statusMap.hasOwnProperty(someStatus) ))
+				tl.grouped = tl.grouped.map((group) => {
+					return group.filter((someStatus) => ( !statusMap.hasOwnProperty(someStatus) ))
+				})
+
+				console.log('successfully rid', tlId, 'of', statusIds)
+			}
+		}
+
 	}
 })

@@ -1,6 +1,7 @@
 import { defineStore } from "pinia"
 import { assignIn, clone } from 'lodash'
 import { interactWithStatus } from "../lib/api"
+import { useTimelinesStore } from "./timelines"
 
 
 export const useStatusesStore = defineStore('statuses', {
@@ -56,6 +57,9 @@ export const useStatusesStore = defineStore('statuses', {
 
 				if(this.statuses.hasOwnProperty(id))
 					this.importStatuses([resp.data])
+				
+				if(interactionEffects.hasOwnProperty(interactionType))
+					interactionEffects[interactionType](resp.data)
 			}catch(e){
 				console.error(e)
 				throw e
@@ -63,3 +67,24 @@ export const useStatusesStore = defineStore('statuses', {
 		}
 	}
 })
+
+
+const interactionEffects = {
+	unfavourite(status){
+		/* TODO: once profiles are implemented, if the cached profile is ours
+		 * and favourites are cached, remove the post from favourites
+		 */
+	},
+
+	unreblog(){
+		// find reblogs of the post belonging to us
+		// remove from statuses
+		// remove from timelines
+	},
+
+	unbookmark(status){
+		// remove from bookmarks
+		// this is the worst
+		useTimelinesStore().removeStatuses([ status.id ], [ 'bookmarks' ])
+	}
+}

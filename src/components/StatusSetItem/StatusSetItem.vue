@@ -128,70 +128,70 @@ onMounted(() => processLinks())
 
 // Status interaction
 function favouriteStatus(){
-	status.value.favourited = true
-	status.value.favourites_count += 1
+	status.favourited = true
+	status.favourites_count += 1
 
 	stores.statuses.interactWithStatus(status.id, 'favourite')
 		.catch(_e => {
 			// TODO: ADD A TOAST HERE
-			status.value.favourited = false
-			status.value.favourites_count -= 1
+			status.favourited = false
+			status.favourites_count -= 1
 		})
 }
 
 function unfavouriteStatus(){
-	status.value.favourited = false
-	status.value.favourites_count -= 1
+	status.favourited = false
+	status.favourites_count -= 1
 
 	stores.statuses.interactWithStatus(status.id, 'unfavourite')
 		.catch(_e => {
 			// TODO: ADD A TOAST HERE
-			status.value.favourited = true
-			status.value.favourites_count += 1
+			status.favourited = true
+			status.favourites_count += 1
 		})
 }
 
 function bookmarkStatus(){
-	status.value.bookmarked = true
+	status.bookmarked = true
 
 	stores.statuses.interactWithStatus(status.id, 'bookmark')
 		.catch(_e => {
 			// TODO: ADD A TOAST HERE
-			status.value.bookmarked = false
+			status.bookmarked = false
 		})
 }
 
 function unbookmarkStatus(){
-	status.value.bookmarked = false
+	status.bookmarked = false
 
 	stores.statuses.interactWithStatus(status.id, 'unbookmark')
 		.catch(_e => {
 			// TODO: ADD A TOAST HERE
-			status.value.bookmarked = true
+			status.bookmarked = true
 		})
 }
 
 function reblogStatus(){
-	status.value.reblogged = true
-	status.value.reblogs_count += 1
+	status.reblogged = true
+	status.reblogs_count += 1
 
 	stores.statuses.interactWithStatus(status.id, 'reblog')
 		.catch(_e => {
 			// TODO: ADD A TOAST HERE
-			status.value.reblogged = false
-			status.value.reblogs_count -= 1
+			status.reblogged = false
+			status.reblogs_count -= 1
 		})
 }
 
 function unreblogStatus(){
-	status.value.reblogged = false
-	status.value.reblogs_count -= 1
+	status.reblogged = false
+	status.reblogs_count -= 1
 
 	stores.statuses.interactWithStatus(status.id, 'unreblog')
 		.catch(_e => {
 			// TODO: ADD A TOAST HERE
-			status.value.reblogged = true
-			status.value.reblogs_count += 1
+			status.reblogged = true
+			status.reblogs_count += 1
 		})
 }
 
