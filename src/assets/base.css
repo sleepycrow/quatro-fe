@@ -373,6 +373,7 @@ blockquote{
 
 ul.dropdown__content{
 	list-style-type: none;
+	padding: 4px 0;
 }
 
 .dropdown__content--visible{
@@ -383,7 +384,8 @@ ul.dropdown__content li a{
 	display: block;
 	color: #000;
 	text-decoration: none;
-	padding: 1rem 1rem 1rem 1.25rem;
+	padding: 0 1rem 0 1rem;
+	line-height: 48px;
 	background-color: transparent;
 	cursor: pointer;
 	transition: background-color 0.1s;
@@ -391,4 +393,9 @@ ul.dropdown__content li a{
 
 ul.dropdown__content li a:hover{
 	background-color: rgba(0, 0, 0, 0.25);
+}
+
+.dropdown__icon{
+	color: #777;
+	margin-right: 4px;
 }

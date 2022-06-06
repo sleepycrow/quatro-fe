@@ -282,15 +282,24 @@ function copyLinkToStatus(){
 				btn-class="btn icon-btn"
 			>
 				<li>
-					<a :href="status.url" target="_blank">External source</a>
+					<a :href="status.url" target="_blank">
+						<span class="dropdown__icon material-icons">language</span>
+						External source
+					</a>
 				</li>
 
 				<li>
-					<a @click="copyLinkToStatus">Copy link to status</a>
+					<a @click="copyLinkToStatus">
+						<span class="dropdown__icon material-icons">link</span>
+						Copy link to status
+					</a>
 				</li>
 
 				<li>
-					<a :href="status.url" target="_blank">Report</a>
+					<a :href="status.url" target="_blank">
+						<span class="dropdown__icon material-icons">flag</span>
+						Report
+					</a>
 				</li>
 
 				<li>
