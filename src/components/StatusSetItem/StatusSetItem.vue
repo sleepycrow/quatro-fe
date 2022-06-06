@@ -25,26 +25,32 @@ const props = defineProps({
 
 
 // Get the status
-var outerStatus = null
-var status = null
+var outerStatus = null, status = null
 
 if(typeof props.statusId === 'string')
 	outerStatus = reactive(stores.statuses.getStatus(props.statusId))
 else if(typeof props.status === 'object' && props.status !== null)
 	outerStatus = reactive(props.status)
 
-status = outerStatus.reblog !== null ? reactive(outerStatus.reblog) : outerStatus
+status = (outerStatus !== null && outerStatus.reblog !== null) ? reactive(outerStatus.reblog) : outerStatus
+
 
 // Gather info about the status
-const hasSpoiler = (typeof status.spoiler_text === 'string' && status.spoiler_text.length > 0)
-const hasMediaAttachments = (Array.isArray(status.media_attachments) && status.media_attachments.length > 0)
-const statusContent = htmlizeCustomEmoji(status.content, status.emojis)
-const spoilerText = htmlizeCustomEmoji(htmlSpecialChars(status.spoiler_text), status.emojis)
+var hasSpoiler = false, hasMediaAttachments = false, statusContent = '', spoilerText = ''
+var rebloggerDisplayName = '', rebloggerProfileUrl = '', authorDisplayName = '', authorProfileUrl = ''
 
-const rebloggerDisplayName = getAccountDisplayName(outerStatus.account)
-const rebloggerProfileUrl = getProfileUrl(outerStatus.account)
-const authorDisplayName = getAccountDisplayName(status.account)
-const authorProfileUrl = getProfileUrl(status.account)
+if(status !== null){
+	hasSpoiler = (typeof status.spoiler_text === 'string' && status.spoiler_text.length > 0)
+	hasMediaAttachments = (Array.isArray(status.media_attachments) && status.media_attachments.length > 0)
+	statusContent = htmlizeCustomEmoji(status.content, status.emojis)
+	spoilerText = htmlizeCustomEmoji(htmlSpecialChars(status.spoiler_text), status.emojis)
+
+	rebloggerDisplayName = getAccountDisplayName(outerStatus.account)
+	rebloggerProfileUrl = getProfileUrl(outerStatus.account)
+	authorDisplayName = getAccountDisplayName(status.account)
+	authorProfileUrl = getProfileUrl(status.account)
+}
+
 
 // Content hiding
 var contentHidden = ref(hasSpoiler)
@@ -52,8 +58,12 @@ function toggleContentVisibility(){
 	contentHidden.value = !contentHidden.value
 }
 
+
 // Visibility icon
-const statusVisibilityIcon = computed(() => {
+var statusVisibilityIcon = computed(() => {
+	if(status === null)
+		return 'public'
+	
 	switch(status.visibility){
 	case 'unlisted':
 		return 'lock_open'
@@ -69,6 +79,7 @@ const statusVisibilityIcon = computed(() => {
 		return 'public'
 	}
 })
+
 
 // Fix links
 const elTextContent = ref()
@@ -125,6 +136,7 @@ function onLocalizedLinkClick(targetUrl, e){
 }
 
 onMounted(() => processLinks())
+
 
 // Status interaction
 function favouriteStatus(){
@@ -212,7 +224,7 @@ function copyLinkToStatus(){
 
 <template>
 	<section
-		v-if="status"
+		v-if="status && !(outerStatus.deleted || status.deleted)"
 		class="status"
 		:class="(props.isHighlighted ? 'status--highlighted' : '')"
 	>

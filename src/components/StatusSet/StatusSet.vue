@@ -18,10 +18,13 @@ const props = defineProps({
 
 // Get the right statuses
 var statuses = []
-if(Array.isArray(props.statusIds))
-	statuses = props.statusIds.map(id => stores.statuses.getStatus(id))
-else if(Array.isArray(props.statuses))
+if(Array.isArray(props.statusIds)){
+	statuses = props.statusIds
+		.map(id => stores.statuses.getStatus(id))
+		.filter(val => (val !== null))
+}else if(Array.isArray(props.statuses)){
 	statuses = props.statuses
+}
 
 // Gather info about the statuses, for the future
 const isThreadPart = (() => {
