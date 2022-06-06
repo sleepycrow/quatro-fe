@@ -1,7 +1,8 @@
 import { defineStore } from "pinia"
-import { assignIn, clone } from 'lodash'
+import { assignIn, clone, some } from 'lodash'
 import { interactWithStatus } from "../lib/api"
 import { useTimelinesStore } from "./timelines"
+import { useAuthStore } from "./auth"
 
 
 export const useStatusesStore = defineStore('statuses', {
@@ -21,10 +22,8 @@ export const useStatusesStore = defineStore('statuses', {
 				
 				status.deleted = false // TODO: m,ake this do a th ing pls pls plsd pls pls pls pls
 
-				if(status.reblog != null && typeof status.reblog === 'object'){
+				if(status.reblog != null && typeof status.reblog === 'object')
 					statuses.push(status.reblog)
-					status.reblog = status.reblog.id
-				}
 				
 				if(this.statuses[status.id])
 					assignIn(this.statuses[status.id], status)
@@ -37,12 +36,7 @@ export const useStatusesStore = defineStore('statuses', {
 			if(!this.statuses.hasOwnProperty(id) || this.statuses[id].deleted)
 				return null
 			
-			let status = this.statuses[id]
-
-			if(typeof status.reblog === "string")
-				status.reblog = this.getStatus(status.reblog)
-			
-			return status
+			return this.statuses[id]
 		},
 
 
@@ -59,7 +53,7 @@ export const useStatusesStore = defineStore('statuses', {
 					this.importStatuses([resp.data])
 				
 				if(interactionEffects.hasOwnProperty(interactionType))
-					interactionEffects[interactionType](resp.data)
+					interactionEffects[interactionType].call(this, resp.data)
 			}catch(e){
 				console.error(e)
 				throw e
@@ -76,10 +70,24 @@ const interactionEffects = {
 		 */
 	},
 
-	unreblog(){
-		// find reblogs of the post belonging to us
-		// remove from statuses
-		// remove from timelines
+	unreblog(status){
+		// gather info about the user, so we can find reblogs belonging to us. ugly, I know.
+		var userInfo = useAuthStore().userInfo
+		if(!userInfo.hasOwnProperty('id'))
+			return // we can't proceed if we don't have the current user's ID.
+		
+		// mark the reblog as deleted (if exists)
+		for(let someStatusId in this.statuses){
+			let someStatus = this.statuses[someStatusId]
+
+			if(someStatus.reblog === null)
+				continue
+			
+			if(someStatus.account.id === userInfo.id && someStatus.reblog.id === status.id){
+				someStatus.deleted = true
+				break // since each user only gets to reblog a status once, we can safely break here.
+			}
+		}
 	},
 
 	unbookmark(status){
