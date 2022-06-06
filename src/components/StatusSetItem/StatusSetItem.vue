@@ -139,72 +139,37 @@ onMounted(() => processLinks())
 
 
 // Status interaction
-function favouriteStatus(){
-	status.favourited = true
-	status.favourites_count += 1
+function interactWithStatus(interaction){
+	// TODO: add a semaphore here, maybe??
+	var isUndoType = (interaction.substr(0, 2) === 'un')
+	var interactionType = isUndoType ? interaction.substr(2) : interaction
 
-	stores.statuses.interactWithStatus(status.id, 'favourite')
+	simulateInteractionEffect(interactionType, isUndoType)
+	
+	stores.statuses.interactWithStatus(status.id, interaction)
 		.catch(_e => {
 			// TODO: ADD A TOAST HERE
-			status.favourited = false
-			status.favourites_count -= 1
+			// if the interaction failed, apply the simulation of undoing the interaction.
+			simulateInteractionEffect(interactionType, !isUndoType)
 		})
 }
 
-function unfavouriteStatus(){
-	status.favourited = false
-	status.favourites_count -= 1
-
-	stores.statuses.interactWithStatus(status.id, 'unfavourite')
-		.catch(_e => {
-			// TODO: ADD A TOAST HERE
-			status.favourited = true
-			status.favourites_count += 1
-		})
-}
-
-function bookmarkStatus(){
-	status.bookmarked = true
-
-	stores.statuses.interactWithStatus(status.id, 'bookmark')
-		.catch(_e => {
-			// TODO: ADD A TOAST HERE
-			status.bookmarked = false
-		})
-}
-
-function unbookmarkStatus(){
-	status.bookmarked = false
-
-	stores.statuses.interactWithStatus(status.id, 'unbookmark')
-		.catch(_e => {
-			// TODO: ADD A TOAST HERE
-			status.bookmarked = true
-		})
-}
-
-function reblogStatus(){
-	status.reblogged = true
-	status.reblogs_count += 1
-
-	stores.statuses.interactWithStatus(status.id, 'reblog')
-		.catch(_e => {
-			// TODO: ADD A TOAST HERE
-			status.reblogged = false
-			status.reblogs_count -= 1
-		})
-}
-
-function unreblogStatus(){
-	status.reblogged = false
-	status.reblogs_count -= 1
-
-	stores.statuses.interactWithStatus(status.id, 'unreblog')
-		.catch(_e => {
-			// TODO: ADD A TOAST HERE
-			status.reblogged = true
-			status.reblogs_count += 1
-		})
+function simulateInteractionEffect(interactionType, isUndoType){
+	switch(interactionType){
+		case 'favourite':
+			status.favourited = !isUndoType
+			status.favourites_count += isUndoType ? -1 : 1
+			break
+		
+		case 'reblog':
+			status.reblogged = !isUndoType
+			status.reblogs_count += isUndoType ? -1 : 1
+			break
+		
+		case 'bookmark':
+			status.bookmarked = !isUndoType
+			break
+	}
 }
 
 
@@ -344,7 +309,7 @@ function copyLinkToStatus(){
 			<button
 				class="card__action"
 				:class="( status.reblogged ? 'card__action--done' : '' )"
-				@click="( !status.reblogged ? reblogStatus() : unreblogStatus() )"
+				@click="interactWithStatus(!status.reblogged ? 'reblog' : 'unreblog')"
 			>
 				<span class="material-icons">{{ status.reblogged ? 'repeat_on' : 'repeat' }}</span>
 				{{ status.reblogs_count }}
@@ -353,7 +318,7 @@ function copyLinkToStatus(){
 			<button
 				class="card__action"
 				:class="( status.favourited ? 'card__action--done' : '' )"
-				@click="( !status.favourited ? favouriteStatus() : unfavouriteStatus() )"
+				@click="interactWithStatus(!status.favourited ? 'favourite' : 'unfavourite')"
 			>
 				<span class="material-icons">{{ status.favourited ? 'favorite' : 'favorite_border' }}</span>
 				{{ status.favourites_count }}
@@ -362,7 +327,7 @@ function copyLinkToStatus(){
 			<button
 				class="card__action"
 				:class="( status.bookmarked ? 'card__action--done' : '' )"
-				@click="( !status.bookmarked ? bookmarkStatus() : unbookmarkStatus() )"
+				@click="interactWithStatus(!status.bookmarked ? 'bookmark' : 'unbookmark')"
 			>
 				<span class="material-icons">{{ status.bookmarked ? 'bookmark' : 'bookmark_border' }}</span>
 			</button>
