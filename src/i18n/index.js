@@ -16,7 +16,7 @@ export function createI18n() {
 }
 
 export async function setLanguage(i18n, locale){
-	i18n.global.locale = locale
+	i18n.global.locale.value = locale
 
 	if(loaders.hasOwnProperty(locale)){
 		const messages = await loaders[locale]()

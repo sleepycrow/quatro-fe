@@ -20,7 +20,7 @@ export const useStatusesStore = defineStore('statuses', {
 				if(typeof status !== 'object')
 					continue
 				
-				status.deleted = false // TODO: m,ake this do a th ing pls pls plsd pls pls pls pls
+				status.deleted = false
 
 				if(status.reblog != null && typeof status.reblog === 'object')
 					statuses.push(status.reblog)
