@@ -61,5 +61,7 @@
 	"load_more": "Załaduj Więcej",
 	"load_new_statuses": "Załaduj Nowe Wpisy",
 	"show": "Pokaż",
-	"hide": "Ukryj"
+	"hide": "Ukryj",
+	"status_link_copied": "Link do statusu został skopiowany.",
+	"status_link_copy_failed": "Wystąpił błąd podczas kopiowania linku do statusu."
 }

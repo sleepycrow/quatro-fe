@@ -6,11 +6,13 @@ import { nextTick } from '@vue/runtime-core'
 import { useInterfaceStore } from '@/stores/interface'
 import StatusSet from '@/components/StatusSet/StatusSet.vue'
 import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner.vue'
+import { useToastsStore } from '../../stores/toasts'
 
 
 // Pull in stuff from the outside
 const stores = {
-	interface: useInterfaceStore()
+	interface: useInterfaceStore(),
+	toasts: useToastsStore()
 }
 const { t } = useI18n()
 
@@ -45,13 +47,10 @@ onMounted(() => {
 				document.getElementsByClassName('status--highlighted')[0].scrollIntoView({ behavior: 'smooth' })
 		})
 		.catch((e) => {
-			// FIXME: add in like,, actual, good-looking, meant-for-end-users errors
 			loaded.value = true
-			statuses.value = null
-			focusedStatus.value = null
 
 			console.error(e)
-			window.alert(e)
+			useToastsStore().addToast({ type: 'error', content: e.message })
 		})
 })
 </script>

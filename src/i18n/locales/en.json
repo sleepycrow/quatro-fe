@@ -61,5 +61,7 @@
 	"load_more": "Load More",
 	"load_new_statuses": "Load New Statuses",
 	"show": "Show",
-	"hide": "Hide"
+	"hide": "Hide",
+	"status_link_copied": "Link to status has been copied.",
+	"status_link_copy_failed": "An error has occured while copying link to status."
 }

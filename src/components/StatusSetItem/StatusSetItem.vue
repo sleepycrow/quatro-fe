@@ -8,11 +8,13 @@ import FuzzyDate from '@/components/FuzzyDate/FuzzyDate.vue'
 import MediaAttachmentGrid from '@/components/MediaAttachmentGrid/MediaAttachmentGrid.vue'
 import DropdownMenu from '@/components/DropdownMenu/DropdownMenu.vue'
 import { useStatusesStore } from '@/stores/statuses'
+import { useToastsStore } from '../../stores/toasts'
 
 
 // Pull in stuff from the outside
 const stores = {
-	statuses: useStatusesStore()
+	statuses: useStatusesStore(),
+	toasts: useToastsStore()
 }
 const router = useRouter()
 const { t } = useI18n()
@@ -177,13 +179,16 @@ function simulateInteractionEffect(interactionType, isUndoType){
 // DEBUG: remove before release
 function logActivityData(){
 	console.log(Object.assign({}, outerStatus)) // copy the activity into a new object to avoid logging a Proxy object
-	window.alert("hey debugger, we heard you liek status data so we logged the status data in your console.\nno problem :>")
+	stores.toasts.addToast({ content: 'hey debunger, we heard you liek status data so we logged the status data in your console. :>' })
 }
 
-function copyLinkToStatus(){
-	navigator.clipboard.writeText(status.uri)
-	window.alert('done. now replace me with a toast notification or something')
-	// TODO: Add a toast notification here, so the user sees something happened
+async function copyLinkToStatus(){
+	try{
+		await navigator.clipboard.writeText(status.uri)
+		stores.toasts.addToast({ content_i18n: 'status_link_copied' })
+	}catch(e){
+		stores.toasts.addToast({ type: 'error', content_i18n: 'status_link_copy_failed' })
+	}
 }
 </script>
 
