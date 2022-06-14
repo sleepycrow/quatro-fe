@@ -9,6 +9,7 @@ import { useStatusesStore } from "@/stores/statuses"
 import { useInterfaceStore } from "@/stores/interface"
 import { useInstanceStore } from "@/stores/instance"
 import { useTimelinesStore } from "@/stores/timelines"
+import ToastNotifications from './components/ToastNotifications/ToastNotifications.vue'
 
 
 // Get stuff from the outside
@@ -79,6 +80,8 @@ watch(() => stores.instance.nodeName, updateTitle)
 	<component :is="layout">
 		<RouterView :key="route.fullPath" />
 	</component>
+	
+	<ToastNotifications />
 </template>
 
 <script>
