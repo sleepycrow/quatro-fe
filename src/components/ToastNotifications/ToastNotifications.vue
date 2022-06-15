@@ -2,14 +2,14 @@
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { classString } from '../../lib/utils';
-import { useToastsStore } from '../../stores/toasts';
+import { useInterfaceStore } from '@/stores/interface';
 
 const stores = {
-	toasts: useToastsStore()
+	interface: useInterfaceStore()
 }
 const { t } = useI18n()
 
-const toasts = computed(() => stores.toasts.toasts)
+const toasts = computed(() => stores.interface.toasts)
 </script>
 
 <template>

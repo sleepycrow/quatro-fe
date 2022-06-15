@@ -6,13 +6,11 @@ import { nextTick } from '@vue/runtime-core'
 import { useInterfaceStore } from '@/stores/interface'
 import StatusSet from '@/components/StatusSet/StatusSet.vue'
 import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner.vue'
-import { useToastsStore } from '../../stores/toasts'
 
 
 // Pull in stuff from the outside
 const stores = {
-	interface: useInterfaceStore(),
-	toasts: useToastsStore()
+	interface: useInterfaceStore()
 }
 const { t } = useI18n()
 
@@ -50,7 +48,7 @@ onMounted(() => {
 			loaded.value = true
 
 			console.error(e)
-			useToastsStore().addToast({ type: 'error', content: e.message })
+			stores.interface.addToast({ type: 'error', content: e.message })
 		})
 })
 </script>
