@@ -29,7 +29,7 @@ const toasts = computed(() => stores.interface.toasts)
 	position: fixed;
 	bottom: 0;
 	left: 0;
-	z-index: 9999;
+	z-index: 800;
 	
 	width: 100%;
 	

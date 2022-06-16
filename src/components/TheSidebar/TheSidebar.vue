@@ -48,7 +48,7 @@ const sidebarClass = computed(() => classString(
 	position: fixed;
 	top: 0;
 	left: calc(var(--sidebar-width) * -1.25); /* hide by default */
-	z-index: 850;
+	z-index: 750;
 	width: var(--sidebar-width);
 	height: 100vh;
 
@@ -160,7 +160,7 @@ const sidebarClass = computed(() => classString(
 	position: fixed;
 	top: 0;
 	left: 0; /* hide by default */
-	z-index: 800;
+	z-index: 700;
 	width: 100vw;
 	height: 100vh;
 
@@ -175,7 +175,7 @@ const sidebarClass = computed(() => classString(
 	position: fixed;
 	bottom: 16px;
 	left: 16px;
-	z-index: 810;
+	z-index: 710;
 	width: 48px;
 	height: 48px;
 }
