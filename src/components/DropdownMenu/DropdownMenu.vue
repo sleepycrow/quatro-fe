@@ -1,6 +1,5 @@
 <script setup>
-import { computed, onMounted, onUnmounted, ref } from 'vue'
-import { classString } from '../../lib/utils'
+import { onMounted, onUnmounted, ref } from 'vue'
 
 
 // Pull in stuff from the outside
@@ -22,16 +21,6 @@ const props = defineProps({
 const elContainer = ref(null)
 var menuOpen = ref(false)
 
-const containerClass = computed(() => classString(
-	props.containerClass,
-	(props.horizAlign === 'right' ? 'dropdown--right' : null)
-))
-
-const contentClass = computed(() => classString(
-	props.menuClass,
-	(menuOpen.value ? 'dropdown__content--visible' : null)
-))
-
 function onDocumentClick(e){
 	if(elContainer.value.contains(e.target) && (e.target.tagName !== 'A' && e.target.tagName !== 'BUTTON'))
 		return
@@ -44,7 +33,7 @@ onUnmounted(() => document.removeEventListener('click', onDocumentClick))
 </script>
 
 <template>
-	<div ref="elContainer" :class="containerClass">
+	<div ref="elContainer" :class="props.containerClass">
 		<button :class="props.btnClass" @click="menuOpen = !menuOpen">
 			<span
 				v-if="props.btnIcon.length > 0"
@@ -61,8 +50,27 @@ onUnmounted(() => document.removeEventListener('click', onDocumentClick))
 		</button>
 
 
-		<ul ref="elContent" :class="contentClass">
-			<slot />
-		</ul>
+		<Transition name="dropdown">
+			<ul v-if="menuOpen" ref="elContent" :class="props.menuClass">
+				<slot />
+			</ul>
+		</Transition>
 	</div>
 </template>
+
+<style>
+.dropdown-enter-active,
+.dropdown-leave-active{
+	transition: opacity 0.2s ease;
+}
+
+.dropdown-enter-from,
+.dropdown-leave-to{
+	opacity: 0;
+}
+
+.dropdown-enter-to,
+.dropdown-leave-from{
+	opacity: 1;
+}
+</style>
