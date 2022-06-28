@@ -142,7 +142,6 @@ onMounted(() => processLinks())
 
 // Status interaction
 function interactWithStatus(interaction){
-	// TODO: add a semaphore here, maybe??
 	var isUndoType = (interaction.substr(0, 2) === 'un')
 	var interactionType = isUndoType ? interaction.substr(2) : interaction
 
@@ -150,9 +149,8 @@ function interactWithStatus(interaction){
 	
 	stores.statuses.interactWithStatus(status.id, interaction)
 		.catch(_e => {
-			// TODO: ADD A TOAST HERE
-			// if the interaction failed, apply the simulation of undoing the interaction.
-			simulateInteractionEffect(interactionType, !isUndoType)
+			stores.interface.addToast({ type: 'error', content_i18n: 'status_interaction_failed' })
+			simulateInteractionEffect(interactionType, !isUndoType) // undo the simulation we did earlier
 		})
 }
 
@@ -180,9 +178,8 @@ function toggleReaction(reactionName, shouldBeReacted){
 	simulateReactionEffect(reactionName, shouldBeReacted)
 	stores.statuses.toggleReaction(status.id, reactionName, shouldBeReacted)
 		.catch(_e => {
-			// TODO: ADD A TOAST HERE
-			// if the interaction failed, apply the simulation of undoing the interaction.
-			simulateReactionEffect(reactionName, !shouldBeReacted)
+			stores.interface.addToast({ type: 'error', content_i18n: 'status_interaction_failed' })
+			simulateReactionEffect(reactionName, !shouldBeReacted) // undo the simulation we did earlier
 		})
 } 
 

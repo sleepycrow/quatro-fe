@@ -63,5 +63,6 @@
 	"show": "Pokaż",
 	"hide": "Ukryj",
 	"status_link_copied": "Link do statusu został skopiowany.",
-	"status_link_copy_failed": "Wystąpił błąd podczas kopiowania linku do statusu."
+	"status_link_copy_failed": "Wystąpił błąd podczas kopiowania linku do statusu.",
+	"status_interaction_failed": "Wystąpił błąd podczas interakcji ze statusem, spróbuj ponownie później."
 }

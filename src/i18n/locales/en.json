@@ -63,5 +63,6 @@
 	"show": "Show",
 	"hide": "Hide",
 	"status_link_copied": "Link to status has been copied.",
-	"status_link_copy_failed": "An error has occured while copying link to status."
+	"status_link_copy_failed": "An error occured while copying link to status.",
+	"status_interaction_failed": "An error occured while trying to interact with the status, try again later."
 }
