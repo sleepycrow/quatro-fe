@@ -261,6 +261,13 @@ export async function oauthRevokeToken(token){
 }
 
 
+/**
+ * Do or undo a number of interactions towards a status
+ * @param {string} statusId - the ID of the status in question
+ * @param {string} interactionType - any of the following: 'favourite', 'unfavourite', 'bookmark', 'unbookmark', 'reblog', 'unreblog'
+ * @returns A promise, which resolves to the status in question
+ * @throws An error if the server responds with a status code other than 200
+ */
 export async function interactWithStatus(statusId, interactionType){
 	var endpoints = {
 		favourite: STATUS_FAVOURITE_ENDPOINT,
@@ -283,6 +290,15 @@ export async function interactWithStatus(statusId, interactionType){
 	}
 }
 
+
+/**
+ * Adds or removes a reaction to a status
+ * @param {string} statusId - the ID of the status in question
+ * @param {string} reactionName - (currently) the emoji you'd like to react with. as in '😀'
+ * @param {boolean} shouldBeReacted - `true` if you want to add the reaction, `false` if you want to remove it
+ * @returns A promise, which resolves to the status in question
+ * @throws An error if the server responds with a status code other than 200
+ */
 export async function toggleReactionToStatus(statusId, reactionName, shouldBeReacted){
 	return fetchJson(STATUS_REACT_ENDPOINT(statusId, reactionName), {
 		method: (shouldBeReacted ? 'put' : 'delete')

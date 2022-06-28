@@ -188,9 +188,13 @@ function simulateReactionEffect(reactionName, shouldBeReacted){
 		if(reaction.name === reactionName){
 			reaction.count += (shouldBeReacted ? 1 : -1)
 			reaction.me = !reaction.me
-			break
+			return
 		}
 	}
+
+	// if we haven't returned yet, then a reaction with the desired name doesn't exist yet. create it!
+	if(shouldBeReacted)
+		status.pleroma.emoji_reactions.push({name: reactionName, count: 1, me: true})
 }
 
 // Dropdown menu methods
