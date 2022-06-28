@@ -9,7 +9,7 @@ import MediaAttachmentGrid from '@/components/MediaAttachmentGrid/MediaAttachmen
 import DropdownMenu from '@/components/DropdownMenu/DropdownMenu.vue'
 import { useStatusesStore } from '@/stores/statuses'
 import { useInterfaceStore } from '@/stores/interface'
-
+import { classString } from '../../lib/utils'
 
 // Pull in stuff from the outside
 const stores = {
@@ -175,6 +175,27 @@ function simulateInteractionEffect(interactionType, isUndoType){
 }
 
 
+// Emoji reactions
+function toggleReaction(reactionName, shouldBeReacted){
+	simulateReactionEffect(reactionName, shouldBeReacted)
+	stores.statuses.toggleReaction(status.id, reactionName, shouldBeReacted)
+		.catch(_e => {
+			// TODO: ADD A TOAST HERE
+			// if the interaction failed, apply the simulation of undoing the interaction.
+			simulateReactionEffect(reactionName, !shouldBeReacted)
+		})
+} 
+
+function simulateReactionEffect(reactionName, shouldBeReacted){
+	for(let reaction of status.pleroma.emoji_reactions){
+		if(reaction.name === reactionName){
+			reaction.count += (shouldBeReacted ? 1 : -1)
+			reaction.me = !reaction.me
+			break
+		}
+	}
+}
+
 // Dropdown menu methods
 // DEBUG: remove before release
 function logActivityData(){
@@ -312,6 +333,22 @@ async function copyLinkToStatus(){
 				</li>
 			</DropdownMenu>
 		</div>
+
+		<!-------------- Emoji Reactions -------------->
+		<div v-if="status.pleroma.emoji_reactions.length > 0" class="card__chips">
+			<template v-for="reaction in status.pleroma.emoji_reactions">
+			
+				<button
+					v-if="reaction.count > 0"
+					:class="classString('card__chip', (reaction.me && 'card__chip--active'))"
+					@click="toggleReaction(reaction.name, !reaction.me)"
+				>
+					<span class="chip__icon chip__icon--emoji">{{ reaction.name }}</span>
+					{{ reaction.count }}
+				</button>
+
+			</template>
+		</div>
 		
 		<!-------------- Actions -------------->
 		<div class="card__actions">
@@ -337,6 +374,12 @@ async function copyLinkToStatus(){
 				<span class="material-icons">{{ status.favourited ? 'favorite' : 'favorite_border' }}</span>
 				{{ status.favourites_count }}
 			</button>
+
+			<!-- PLACEHOLDER
+				TODO: MAKE ME WORK -->
+			<RouterLink class="card__action" :to="'/statuses/'+status.id">
+				<span class="material-icons">insert_emoticon</span>
+			</RouterLink>
 			
 			<button
 				class="card__action"

@@ -19,6 +19,7 @@ const STATUS_REBLOG_ENDPOINT = statusId => `/api/v1/statuses/${statusId}/reblog`
 const STATUS_UNREBLOG_ENDPOINT = statusId => `/api/v1/statuses/${statusId}/unreblog`
 const STATUS_BOOKMARK_ENDPOINT = statusId => `/api/v1/statuses/${statusId}/bookmark`
 const STATUS_UNBOOKMARK_ENDPOINT = statusId => `/api/v1/statuses/${statusId}/unbookmark`
+const STATUS_REACT_ENDPOINT = (statusId, reactionName) => `/api/v1/pleroma/statuses/${statusId}/reactions/${reactionName}`
 
 const NOTIFICATIONS_ENDPOINT = '/api/v1/notifications'
 const MARK_NOTIFICATIONS_AS_READ_ENDPOINT = '/api/v1/pleroma/notifications/read'
@@ -280,4 +281,10 @@ export async function interactWithStatus(statusId, interactionType){
 	}else{
 		throw 'invalid interaction type' //TODO: error thing
 	}
+}
+
+export async function toggleReactionToStatus(statusId, reactionName, shouldBeReacted){
+	return fetchJson(STATUS_REACT_ENDPOINT(statusId, reactionName), {
+		method: (shouldBeReacted ? 'put' : 'delete')
+	})
 }

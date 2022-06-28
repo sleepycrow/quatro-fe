@@ -1,6 +1,6 @@
 import { defineStore } from "pinia"
 import { assignIn, clone, some } from 'lodash'
-import { interactWithStatus } from "../lib/api"
+import { interactWithStatus, toggleReactionToStatus } from "../lib/api"
 import { useTimelinesStore } from "./timelines"
 import { useAuthStore } from "./auth"
 
@@ -54,6 +54,20 @@ export const useStatusesStore = defineStore('statuses', {
 				
 				if(interactionEffects.hasOwnProperty(interactionType))
 					interactionEffects[interactionType].call(this, resp.data)
+			}catch(e){
+				console.error(e)
+				throw e
+			}
+		},
+
+		async toggleReaction(id = '', reactionName, shouldBeReacted){
+			try{
+				console.log('attemting to '+(shouldBeReacted ? 'react' : 'unreact')+' to '+id+' with '+reactionName)
+				let resp = await toggleReactionToStatus(id, reactionName, shouldBeReacted)
+				console.log('successfully did reaction thing', resp)
+
+				if(this.statuses.hasOwnProperty(id))
+					this.importStatuses([resp.data])
 			}catch(e){
 				console.error(e)
 				throw e

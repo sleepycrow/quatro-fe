@@ -320,6 +320,42 @@ blockquote{
 	font-weight: bold;
 }
 
+.card__chips{
+	width: 100%;
+	margin: 0 0 6px 0;
+	padding: 0 0 0 8px;
+	white-space: nowrap;
+	overflow-x: auto;
+}
+
+.card__chip{
+	display: inline-block;
+	background-color: #CCC;
+	color: #666;
+	padding: 6px 10px;
+	border: none;
+	transition: background-color 0.2s, color 0.2s;
+	cursor: pointer;
+	margin: 4px 4px;
+	border-radius: 16px;
+	font-size: inherit;
+	font-family: inherit;
+}
+
+.card__chip:hover,
+.card__chip:active{
+	background-color: #AAA;
+	color: #333;
+}
+
+.card__chip--active,
+.card__chip--active:hover,
+.card__chip--active:active{
+	background-color: var(--accent-light);
+	color: #FFF;
+	font-weight: bold;
+}
+
 .card .card__img{
 	text-align: center;
 }
