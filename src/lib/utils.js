@@ -49,18 +49,28 @@ export function getProfileUrl(account){
 
 
 /**
+ * Given a Mastodon API-style account object, returns whether the account has a display name
+ * Necessary because when no display name is set, some servers put an empty string in it's
+ * place, while some put the handle.
+ * @param {Object} account 
+ * @returns {boolean}
+ */
+export function hasDisplayName(account){
+	return (account.display_name !== '' && account.display_name !== account.acct)
+}
+
+
+/**
  * Given a Mastodon API-style account object, returns an HTML string of the user's display name
  * @param {Object} account 
  * @returns {string} An HTML string with the user's display name
  */
 export function getAccountDisplayName(account){
-	let display_name = account.display_name
-
 	// If no display name is set, use the account's @ as their display name
-	if(account.display_name === '' || account.display_name === account.acct)
-		display_name = `@${account.acct}`
-	
-	return htmlizeCustomEmoji(htmlSpecialChars(display_name), account.emojis)
+	if(hasDisplayName(account))
+		return htmlizeCustomEmoji(htmlSpecialChars(account.display_name), account.emojis)
+	else
+		return `@${account.acct}`
 }
 
 

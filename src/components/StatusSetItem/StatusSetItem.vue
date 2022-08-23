@@ -2,7 +2,7 @@
 import { onMounted, computed, ref, reactive } from 'vue'
 import { useRouter, RouterLink } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import { htmlizeCustomEmoji, htmlSpecialChars, getProfileUrl, getAccountDisplayName } from '@/lib/utils'
+import { htmlizeCustomEmoji, htmlSpecialChars, getProfileUrl, hasDisplayName, getAccountDisplayName } from '@/lib/utils'
 import PreviewCard from '@/components/PreviewCard/PreviewCard.vue'
 import FuzzyDate from '@/components/FuzzyDate/FuzzyDate.vue'
 import MediaAttachmentGrid from '@/components/MediaAttachmentGrid/MediaAttachmentGrid.vue'
@@ -243,7 +243,7 @@ async function copyLinkToStatus(){
 				<div class="status-meta__info">
 					<div class="status-meta__author">
 						<RouterLink
-							v-if="authorDisplayName !== status.account.acct"
+							v-if="hasDisplayName(status.account)"
 							:to="authorProfileUrl"
 						>
 							<span class="author__name">
@@ -256,10 +256,10 @@ async function copyLinkToStatus(){
 						</RouterLink>
 
 						<RouterLink
-							v-if="authorDisplayName === status.account.acct"
+							v-else
 							:to="authorProfileUrl"
 						>
-							<span v-if="authorDisplayName === null" class="author__username author__username--only">
+							<span class="author__username author__username--only">
 								@{{ status.account.acct }}
 							</span>
 						</RouterLink>

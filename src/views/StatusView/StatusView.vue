@@ -4,6 +4,7 @@ import { useI18n } from 'vue-i18n'
 import { fetchStatus } from '@/lib/api'
 import { nextTick } from '@vue/runtime-core'
 import { useInterfaceStore } from '@/stores/interface'
+import { hasDisplayName } from '@/lib/utils'
 import StatusSet from '@/components/StatusSet/StatusSet.vue'
 import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner.vue'
 
@@ -33,9 +34,9 @@ onMounted(() => {
 			focusedStatus.value = status
 			loaded.value = true
 
-			let author_name = (focusedStatus.value.account.display_name !== null
+			let author_name = (hasDisplayName(focusedStatus.value.account)
 				? focusedStatus.value.account.display_name.replace(/:[A-Za-z0-9_-]+:/gi, '')
-				: focusedStatus.value.account.acct)
+				: `@${focusedStatus.value.account.acct}`)
 			stores.interface.setPageTitle(t('statuses.status_page_title', [author_name]))
 
 			return nextTick()
