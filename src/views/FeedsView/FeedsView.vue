@@ -3,7 +3,7 @@ import { onMounted } from 'vue'
 import FeedHeader from '@/components/FeedHeader/FeedHeader.vue'
 import Timeline from '@/components/Timeline/Timeline.vue'
 import { useI18n } from 'vue-i18n'
-import { useInterfaceStore } from '../../stores/interface'
+import { useInterfaceStore } from '@/stores/interface'
 
 
 // Pull in stuff from the outside

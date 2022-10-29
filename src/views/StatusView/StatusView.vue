@@ -2,7 +2,7 @@
 import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { fetchStatus } from '@/lib/api'
-import { nextTick } from '@vue/runtime-core'
+import { nextTick } from 'vue'
 import { useInterfaceStore } from '@/stores/interface'
 import { hasDisplayName } from '@/lib/utils'
 import StatusSet from '@/components/StatusSet/StatusSet.vue'
