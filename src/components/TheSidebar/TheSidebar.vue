@@ -32,7 +32,7 @@ const sidebarClass = computed(() => classString(
 		<!-------------- Footer -------------->
 		<footer>
 			<!-- TODO: make this take the user to an instance info page, like in the old misskey layout -->
-			<img src="@/assets/logo.svg" :alt="stores.instance.nodeName" :title="stores.instance.nodeName">
+			<img src="@/assets/logo-new.png" :alt="stores.instance.nodeName" :title="stores.instance.nodeName">
 		</footer>
 	</div>
 
