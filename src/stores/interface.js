@@ -5,7 +5,9 @@ export const useInterfaceStore = defineStore('interface', {
 	state: () => ({
 		pageTitle: '',
 		
-		toasts: []
+		toasts: [],
+
+		lastAccountBrowsed: null
 	}),
 
 	actions: {
@@ -34,6 +36,16 @@ export const useInterfaceStore = defineStore('interface', {
 
 		dismissToast(toastId){
 			this.toasts = this.toasts.filter((toast) => (toast.id !== toastId))
+		},
+
+		isLastAccountBrowsed(acctId){
+			return (this.lastAccountBrowsed && (this.lastAccountBrowsed.id === acctId || this.lastAccountBrowsed.acct === acctId))
+		},
+
+		fetchLastAccountBrowsed(){
+			return new Promise((resolve) => {
+				resolve({ data: this.lastAccountBrowsed })
+			})
 		}
 	}
 })

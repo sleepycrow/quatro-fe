@@ -14,7 +14,7 @@ const stores = {
 const route = useRoute()
 const { t } = useI18n()
 
-const isOnTimelinePage = computed(() => route.fullPath.includes('timelines'))
+const isOnTimelinePage = computed(() => route.fullPath.substring(0, 10) === '/timelines')
 </script>
 
 <template>

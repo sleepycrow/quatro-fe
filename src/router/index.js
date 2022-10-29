@@ -9,11 +9,54 @@ import StatusView from '@/views/StatusView/StatusView.vue'
 import DebugView from '@/views/DebugView/DebugView.vue'
 import NotificationsView from '@/views/NotificationsView/NotificationsView.vue'
 import BookmarksView from '@/views/BookmarksView/BookmarksView.vue'
+import ProfileView from '@/views/ProfileView/ProfileView.vue'
+import ProfileFeedsSubview from '@/views/ProfileFeedsSubview/ProfileFeedsSubview.vue'
+import ProfileInfoSubview from '@/views/ProfileInfoSubview/ProfileInfoSubview.vue'
 
 const stores = {
 	interface: useInterfaceStore(pinia),
 	auth: useAuthStore(pinia)
 }
+
+const profileChildren = [
+	{
+		path: '',
+		component: ProfileFeedsSubview,
+		props: { timeline: 'statuses' }
+	},
+	{
+		path: 'timelines',
+		redirect: to => `${to.fullPath}/statuses`
+	},
+	{
+		path: 'timelines/statuses',
+		component: ProfileFeedsSubview,
+		props: { timeline: 'statuses' }
+	},
+	{
+		path: 'timelines/statusesAndReplies',
+		component: ProfileFeedsSubview,
+		props: { timeline: 'statusesAndReplies' }
+	},
+	{
+		path: 'timelines/media',
+		component: ProfileFeedsSubview,
+		props: { timeline: 'media' }
+	},
+	{
+		path: 'timelines/favourites',
+		component: ProfileFeedsSubview,
+		props: { timeline: 'favourites' }
+	},
+	{
+		path: 'info',
+		component: ProfileInfoSubview
+	},
+	{
+		path: 'debug',
+		component: DebugView
+	}
+]
 
 const router = createRouter({
 	history: createWebHistory(),
@@ -64,15 +107,17 @@ const router = createRouter({
 		// ------ Profiles/users ------ \\
 		{
 			name: 'externalProfile',
-			path: '/users/:test',
-			component: DebugView,
-			props: true
+			path: '/users/:acctId',
+			component: ProfileView,
+			props: true,
+			children: profileChildren
 		},
 		{
 			name: 'localProfile',
-			path: '/@:test',
-			component: DebugView,
-			props: true
+			path: '/@:acctId',
+			component: ProfileView,
+			props: true,
+			children: profileChildren
 		},
 		{
 			path: '/debug',

@@ -11,7 +11,12 @@
 	"timelines": {
 		"home": "Twoja Oś Czasu",
 		"local": "Oś Czasu Społeczności",
-		"public": "Globalna Oś Czasu"
+		"public": "Globalna Oś Czasu",
+
+		"user_statuses": "Wpisy",
+		"user_statuses_and_replies": "Wpisy i Odpowiedzi",
+		"user_media": "Media",
+		"user_favourites": "Ulubione"
 	},
 
 	"fuzzy_dates": {
@@ -55,6 +60,18 @@
 
 		"mark_all_as_read": "Oznacz wszystkie jako przeczytane",
 		"mark_as_read": "Oznacz jako przeczytane"
+	},
+
+	"profiles": {
+		"timelines": "Osie Czasu",
+		"information": "Informacje",
+		"follow_btn": "Obserwuj",
+		"message_btn": "Wyślij Wiadomość",
+		"followers": "Obserwowani",
+		"follows": "Obserwujący",
+		"follower_count_noun": "obserwujący | obserwujących",
+		"follow_count_noun": "obserwowany | obserwowanych",
+		"status_count_noun": "wpis | wpisów"
 	},
 
 	"loading": "Ładowanie...",

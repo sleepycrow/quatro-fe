@@ -9,6 +9,7 @@ const CLIENT_SECRET = 'FIjPF110BNPOBTXbLei5v2tpIAo_PR3UwsnSFQJ4hgk'
 const TIMELINE_ENDPOINT = timelineId => `/api/v1/timelines/${timelineId}`
 const TAG_TIMELINE_ENDPOINT = tag => `/api/v1/timelines/tag/${tag}`
 const USER_TIMELINE_ENDPOINT = userId => `/api/v1/accounts/${userId}/statuses`
+const FAVOURITES_TIMELINE_ENDPOINT = userId => `/api/v1/pleroma/accounts/${userId}/favourites`
 const BOOKMARKS_TIMELINE_ENDPOINT = '/api/v1/bookmarks'
 
 const STATUS_ENDPOINT = statusId => `/api/v1/statuses/${statusId}`
@@ -20,6 +21,8 @@ const STATUS_UNREBLOG_ENDPOINT = statusId => `/api/v1/statuses/${statusId}/unreb
 const STATUS_BOOKMARK_ENDPOINT = statusId => `/api/v1/statuses/${statusId}/bookmark`
 const STATUS_UNBOOKMARK_ENDPOINT = statusId => `/api/v1/statuses/${statusId}/unbookmark`
 const STATUS_REACT_ENDPOINT = (statusId, reactionName) => `/api/v1/pleroma/statuses/${statusId}/reactions/${reactionName}`
+
+const ACCOUNT_INFO_ENDPOINT = acctId => `/api/v1/accounts/${acctId}`
 
 const NOTIFICATIONS_ENDPOINT = '/api/v1/notifications'
 const MARK_NOTIFICATIONS_AS_READ_ENDPOINT = '/api/v1/pleroma/notifications/read'
@@ -116,6 +119,8 @@ export function fetchTimeline({
 		endpoint = TAG_TIMELINE_ENDPOINT(tag)
 	else if(type === 'user' && typeof(userId) === 'string')
 		endpoint = USER_TIMELINE_ENDPOINT(userId)
+	else if(type === 'favourites' && typeof(userId) === 'string')
+		endpoint = FAVOURITES_TIMELINE_ENDPOINT(userId)
 	else if(type === 'bookmarks')
 		endpoint = BOOKMARKS_TIMELINE_ENDPOINT
 	else
@@ -205,6 +210,16 @@ export async function fetchStatus(statusId, includeContext = false){
 	}
 
 	return output
+}
+
+
+/**
+ * Fetches information about an account
+ * @param {String} accountId 
+ * @returns {Object}
+ */
+export async function fetchAccount(accountId){
+	return fetchJson(ACCOUNT_INFO_ENDPOINT(accountId))
 }
 
 

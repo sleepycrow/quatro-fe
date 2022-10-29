@@ -11,7 +11,12 @@
 	"timelines": {
 		"home": "Your Timeline",
 		"local": "Community Timeline",
-		"public": "Global Timeline"
+		"public": "Global Timeline",
+
+		"user_statuses": "Statuses",
+		"user_statuses_and_replies": "Statuses and Replies",
+		"user_media": "Media",
+		"user_favourites": "Favourites"
 	},
 
 	"fuzzy_dates": {
@@ -55,6 +60,18 @@
 
 		"mark_all_as_read": "Mark all as read",
 		"mark_as_read": "Mark as read"
+	},
+
+	"profiles": {
+		"timelines": "Timelines",
+		"information": "Information",
+		"follow_btn": "Follow",
+		"message_btn": "Message",
+		"followers": "Followers",
+		"follows": "Follows",
+		"follower_count_noun": "follower | followers",
+		"follow_count_noun": "follow | follows",
+		"status_count_noun": "status | statuses"
 	},
 
 	"loading": "Loading...",

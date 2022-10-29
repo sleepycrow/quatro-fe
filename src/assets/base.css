@@ -89,12 +89,12 @@ blockquote{
 @media screen and (min-width: 768px) {
 	.page-content--2col main{
 		float: left;
-		width: 66.6%;
+		width: calc(66.6% - 0.5rem);
 	}
 
 	.page-content--2col aside{
 		float: right;
-		width: 33.3%;
+		width: calc(33.3% - 0.5rem);
 	}
 }
 
@@ -377,6 +377,14 @@ blockquote{
 	position: absolute !important;
 	top: 0;
 	right: 0;
+}
+
+.card__section-microheader{
+	display: block;
+	font-size: 0.8rem;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: #333;
 }
 
 /* Dropdown Menu */

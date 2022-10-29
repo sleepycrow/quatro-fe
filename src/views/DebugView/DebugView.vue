@@ -11,7 +11,8 @@ const stores = {
 const router = useRouter()
 
 const props = defineProps({
-	test: { default: '' }
+	test: { default: '' },
+	acctInfo: { default: {} }
 })
 
 
@@ -55,7 +56,18 @@ function onLogout(e){
 		<hr>
 
 		<h3>Debug:</h3>
-		<pre v-html="props.test" />
+		<pre
+			style="width: 100%; overflow: auto hidden;"
+			v-html="(typeof props.test === 'object' ? JSON.stringify(props.test, undefined, '  ') : props.test)"
+		/>
+
+		<hr>
+
+		<h3>Account:</h3>
+		<pre
+			style="width: 100%; overflow: auto hidden;"
+			v-html="(typeof props.acctInfo === 'object' ? JSON.stringify(props.acctInfo, undefined, '  ') : props.acctInfo)"
+		/>
 	</div>
 </template>
 

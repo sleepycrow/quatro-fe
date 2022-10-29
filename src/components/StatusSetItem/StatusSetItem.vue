@@ -34,7 +34,9 @@ if(typeof props.statusId === 'string')
 else if(typeof props.status === 'object' && props.status !== null)
 	outerStatus = reactive(props.status)
 
-status = (outerStatus !== null && outerStatus.reblog !== null) ? reactive(outerStatus.reblog) : outerStatus
+status = (outerStatus !== null && outerStatus.reblog !== null)
+	? reactive(stores.statuses.getStatus(outerStatus.reblog.id))
+	: outerStatus
 
 
 // Gather info about the status
@@ -156,19 +158,19 @@ function interactWithStatus(interaction){
 
 function simulateInteractionEffect(interactionType, isUndoType){
 	switch(interactionType){
-		case 'favourite':
-			status.favourited = !isUndoType
-			status.favourites_count += isUndoType ? -1 : 1
-			break
+	case 'favourite':
+		status.favourited = !isUndoType
+		status.favourites_count += isUndoType ? -1 : 1
+		break
 		
-		case 'reblog':
-			status.reblogged = !isUndoType
-			status.reblogs_count += isUndoType ? -1 : 1
-			break
+	case 'reblog':
+		status.reblogged = !isUndoType
+		status.reblogs_count += isUndoType ? -1 : 1
+		break
 		
-		case 'bookmark':
-			status.bookmarked = !isUndoType
-			break
+	case 'bookmark':
+		status.bookmarked = !isUndoType
+		break
 	}
 }
 
@@ -338,7 +340,6 @@ async function copyLinkToStatus(){
 		<!-------------- Emoji Reactions -------------->
 		<div v-if="status.pleroma.emoji_reactions.length > 0" class="card__chips">
 			<template v-for="reaction in status.pleroma.emoji_reactions">
-			
 				<button
 					v-if="reaction.count > 0"
 					:class="classString('card__chip', (reaction.me && 'card__chip--active'))"
@@ -347,7 +348,6 @@ async function copyLinkToStatus(){
 					<span class="chip__icon chip__icon--emoji">{{ reaction.name }}</span>
 					{{ reaction.count }}
 				</button>
-
 			</template>
 		</div>
 		
