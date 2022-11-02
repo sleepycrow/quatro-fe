@@ -15,6 +15,7 @@ const route = useRoute()
 const { t } = useI18n()
 
 const isOnTimelinePage = computed(() => route.fullPath.substring(0, 10) === '/timelines')
+const ownProfileUrl = `/@${stores.auth.userInfo.acct}`
 </script>
 
 <template>
@@ -22,18 +23,18 @@ const isOnTimelinePage = computed(() => route.fullPath.substring(0, 10) === '/ti
 		<!-------------- User ID -------------->
 		<section class="user-section">
 			<div class="sidebar-id"> 
-				<div class="sidebar-id__avatar">
+				<RouterLink :to="ownProfileUrl" class="sidebar-id__avatar">
 					<img
 						:src="stores.auth.userInfo.avatar"
 						:alt="stores.auth.userInfo.display_name"
 						:title="stores.auth.userInfo.display_name"
 					>
-				</div>
+				</RouterLink>
 
-				<div class="sidebar-id__info">
+				<RouterLink :to="ownProfileUrl" class="sidebar-id__info">
 					<div class="sidebar-id__name">{{ stores.auth.userInfo.display_name }}</div>
 					<div class="sidebar-id__username">@{{ stores.auth.userInfo.username }}</div>
-				</div>
+				</RouterLink>
 
 				<div class="sidebar-id__btn">
 					<button class="btn icon-btn" @click="stores.auth.fetchUserInfo()">
@@ -133,6 +134,11 @@ const isOnTimelinePage = computed(() => route.fullPath.substring(0, 10) === '/ti
 
 .sidebar-id__info div{
 	margin: 4px 0;
+}
+
+.sidebar-id a,
+.sidebar-id a:hover{
+	text-decoration: none;
 }
 
 .sidebar-id__name{
