@@ -30,21 +30,21 @@ const props = defineProps({
 		</section>
 
 		<section class="card card--userinfo-stats">
-			<div v-if="!props.acctInfo.pleroma.hide_followers" class="stat">
+			<div v-if="!props.acctInfo.pleroma.hide_followers" class="profile-stat">
 				<span class="number">{{ props.acctInfo.followers_count }}</span>
 				<span class="label card__section-microheader">
 					{{ t('profiles.follower_count_noun', parseInt(props.acctInfo.followers_count)) }}
 				</span>
 			</div>
 
-			<div v-if="!props.acctInfo.pleroma.hide_follows" class="stat">
+			<div v-if="!props.acctInfo.pleroma.hide_follows" class="profile-stat">
 				<span class="number">{{ props.acctInfo.following_count }}</span>
 				<span class="label card__section-microheader">
 					{{ t('profiles.follow_count_noun', parseInt(props.acctInfo.following_count)) }}
 				</span>
 			</div>
 
-			<div class="stat">
+			<div class="profile-stat">
 				<span class="number">{{ props.acctInfo.statuses_count }}</span>
 				<span class="label card__section-microheader">
 					{{ t('profiles.status_count_noun', parseInt(props.acctInfo.statuses_count)) }}
@@ -70,30 +70,23 @@ const props = defineProps({
 	display: block;
 }
 
-.card--userinfo-stats .stat{
-	padding: 12px 12px 12px 16px;
+.card--userinfo-stats .profile-stat{
 	border-left: none;
 	border-top: 1px solid #CCC;
 }
 
-.card--userinfo-stats .stat:nth-child(1){
+.card--userinfo-stats .profile-stat:nth-child(1){
 	border-left: none;
 	border-top: none;
 }
-
-.card--userinfo-stats .stat .number{
-	display: block;
-	font-size: 1.5rem;
-	color: #000;
-}
-
+ 
 @media screen and (min-width: 768px) {
 	.card--userinfo-stats{
-		display: grid;
-		grid-template-columns: 33.3% 33.3% 33.3%;
+		display: flex;
 	}
 
-	.card--userinfo-stats .stat{
+	.card--userinfo-stats .profile-stat{
+		flex: 1 0 33.3%;
 		border-left: 1px solid #CCC;
 		border-top: none;
 	}

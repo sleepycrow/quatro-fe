@@ -72,7 +72,7 @@ const previewCardHost = computed(() => {
 }
 
 .preview-card__link:hover{
-	background-color: rgba(0, 0, 0, 0.12);
+	background-color: var(--transparent-item-hover-bg);
 	text-decoration: none;
 }
 
