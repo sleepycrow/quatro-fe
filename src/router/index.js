@@ -154,9 +154,10 @@ router.beforeEach((to) => {
 		return '/'
 })
 
-router.afterEach(() => {
+router.afterEach((to, from) => {
 	// Reset the page title everytime we navigate.
-	stores.interface.setPageTitle('')
+	if(to.fullPath !== from.fullPath)
+		stores.interface.setPageTitle('')
 })
 
 export default router
