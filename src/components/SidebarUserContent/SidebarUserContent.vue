@@ -5,6 +5,7 @@ import { useRoute, RouterLink } from "vue-router";
 import { useAuthStore } from "@/stores/auth";
 import { useInstanceStore } from "@/stores/instance"
 import { useNotifsStore } from "@/stores/notifs";
+import { hasDisplayName, getAccountDisplayName } from '@/lib/utils'
 
 const stores = {
 	auth: useAuthStore(),
@@ -14,6 +15,7 @@ const stores = {
 const route = useRoute()
 const { t } = useI18n()
 
+const userDisplayName = computed(() => getAccountDisplayName(stores.auth.userInfo))
 const isOnTimelinePage = computed(() => route.fullPath.substring(0, 10) === '/timelines')
 const ownProfileUrl = `/@${stores.auth.userInfo.acct}`
 </script>
@@ -31,9 +33,23 @@ const ownProfileUrl = `/@${stores.auth.userInfo.acct}`
 					>
 				</RouterLink>
 
-				<RouterLink :to="ownProfileUrl" class="sidebar-id__info">
-					<div class="sidebar-id__name">{{ stores.auth.userInfo.display_name }}</div>
+				<RouterLink
+					v-if="hasDisplayName(stores.auth.userInfo)"
+					:to="ownProfileUrl"
+					class="sidebar-id__info"
+				>
+					<div class="sidebar-id__name"><bdi v-html="userDisplayName" /></div>
 					<div class="sidebar-id__username">@{{ stores.auth.userInfo.username }}</div>
+				</RouterLink>
+
+				<RouterLink
+					v-else
+					:to="ownProfileUrl"
+					class="sidebar-id__info"
+				>
+					<div class="sidebar-id__username sidebar-id__username--only">
+						@{{ stores.auth.userInfo.username }}
+					</div>
 				</RouterLink>
 
 				<div class="sidebar-id__btn">
@@ -155,6 +171,10 @@ const ownProfileUrl = `/@${stores.auth.userInfo.acct}`
 	overflow: hidden;
 	font-weight: normal;
 	color: #EEE;
+}
+
+.sidebar-id__username--only{
+	font-weight: bold;
 }
 
 .sidebar-id__btn{
